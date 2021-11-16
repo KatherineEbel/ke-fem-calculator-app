@@ -1,21 +1,22 @@
 module.exports = {
+  mode: 'jit',
   purge: [
     './layout/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: false,
   theme: {
     borderRadius: {
-      // DEFAULT: '.625rem',
       sm: '.3125rem',
       DEFAULT: '.625rem',
       lg: '.8125rem',
+      full: '9999px',
     },
     boxShadow: {
-      'inner-primary': 'inset 0px -4px 0px #B3A497',
-      'inner-secondary': 'inset 0px -4px 0px #414E73',
-      'inner-accent': 'inset 0px -4px 0px #93261A',
+      'inner-primary': 'inset 0px -4px 0px #93261A',
+      'inner-accent': 'inset 0px -4px 0px #414E73',
+      'inner-secondary': 'inset 0px -4px 0px #B3A497',
     },
     colors: {
       main: 'hsl(222, 26%, 31%)',
@@ -28,11 +29,11 @@ module.exports = {
       'key-accent': 'hsl(225, 21%, 49%)',
       'key-accent-dk': 'hsl(224, 28%, 35%)',
 
-      'key-secondary': 'hsl(28, 16%, 65%)',
-      'key-secondary-dk': 'hsl(30, 25%, 89%),',
+      'key-secondary': 'hsl(31, 24%, 89%)',
+      'key-secondary-dk': 'hsl(28, 16%, 65%)',
 
       'text-color': 'hsl(221, 14%, 31%)',
-      white: 'hsl(0, 0, 100%)',
+      white: 'hsl(0, 0%, 100%)',
     },
     fontFamily: {
       sans: ['Spartan', 'sans-serif'],
@@ -41,6 +42,7 @@ module.exports = {
       sm: [
         '0.75rem',
         {
+          letterSpacing: '1px',
           lineHeight: '0.84rem',
         },
       ],
@@ -81,7 +83,11 @@ module.exports = {
       ],
       //  gaps 13px 24px 28px
     },
-    extend: {},
+    extend: {
+      spacing: {
+        calculator: '33.75rem',
+      },
+    },
   },
   variants: {
     extend: {},

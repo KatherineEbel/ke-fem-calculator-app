@@ -1,3 +1,66 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body > div:first-child {
+    @apply h-full w-full bg-main grid place-items-center border border-key-primary  px-6
+  }
+  
+  h1 {
+    @apply text-xl md:text-2xl
+  }
+  
+  h3 {
+    @apply text-sm uppercase
+  }
+  
+}
+
+@layer components {
+  /*-------------
+    Header
+  -------------*/
+  
+  .slider {
+    @apply w-16 h-6 px-1 rounded-lg bg-keypad/toggle outline-none;
+    appearance: none;
+  }
+  
+  .slider::-webkit-slider-thumb,
+  .slider::-moz-range-thumb {
+    @apply w-4 h-4 bg-key-primary border-none rounded-full cursor-pointer p-0;
+    appearance: none;
+  }
+  
+  /*-------------
+    Buttons
+  -------------*/
+  .btn {
+    @apply rounded w-full h-16 uppercase
+  }
+  
+  .btn-primary {
+    @apply bg-key-primary shadow-inner-primary
+  }
+  
+  .btn-secondary {
+    @apply bg-key-secondary shadow-inner-secondary text-xl text-text-color
+  }
+  
+  .btn-accent {
+    @apply bg-key-accent shadow-inner-accent
+  }
+  
+  /*-------------
+    Footer
+  -------------*/
+  
+  .attribution {
+    @apply  text-center text-key-secondary text-sm
+  }
+  
+  .attribution a {
+    @apply text-key-primary;
+  }
+}
