@@ -15,20 +15,27 @@ module.exports = {
     },
     boxShadow: {
       'inner-primary': 'inset 0px -4px 0px #93261A',
+      'inner-primary-active': 'inset 0px -2px 0px #93261A',
       'inner-accent': 'inset 0px -4px 0px #414E73',
+      'inner-accent-active': 'inset 0px -2px 0px #414E73',
       'inner-secondary': 'inset 0px -4px 0px #B3A497',
+      'inner-secondary-active': 'inset 0px -2px 0px #B3A497',
+      none: '0 0 #000000',
     },
     colors: {
       main: 'hsl(222, 26%, 31%)',
       'keypad/toggle': 'hsl(223, 31%, 20%)',
       screen: 'hsl(224, 36%, 15%)',
 
+      'key-primary-lt': 'hsla(6, 93%, 67%, 1)',
       'key-primary': 'hsl(6, 63%, 50%)',
       'key-primary-dk': 'hsl(6, 70%, 34%)',
 
+      'key-accent-lt': 'hsl(224 51%, 76%)',
       'key-accent': 'hsl(225, 21%, 49%)',
       'key-accent-dk': 'hsl(224, 28%, 35%)',
 
+      'key-secondary-lt': 'hsl(31, 100%, 100%)',
       'key-secondary': 'hsl(31, 24%, 89%)',
       'key-secondary-dk': 'hsl(28, 16%, 65%)',
 

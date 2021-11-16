@@ -18,7 +18,7 @@ export default function AppHeader() {
               <span>3</span>
             </label>
             <input
-              className="slider"
+              className="toggle"
               type="range"
               name="theme"
               id="theme"
