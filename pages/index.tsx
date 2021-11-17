@@ -1,23 +1,40 @@
-import { FormEventHandler, useState } from 'react'
+import { FormEventHandler, useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import CalculatorKey from '../components/CalculatorKey'
 import { calculatorKeys, KeyKind, OperatorKind } from '../lib/keys'
+import { format } from '../lib/utils'
+import { useTheme } from 'next-themes'
 
 const CalculatorPage: NextPage = () => {
   const [memory, setMemory] = useState<string>()
   const [display, setDisplay] = useState('0')
   const [operator, setOperator] = useState<OperatorKind>()
+  const { theme } = useTheme()
 
   const handleInput = (kind: KeyKind, value: string | OperatorKind) => {
     switch (kind) {
       case 'operator':
-        setMemory(display)
         setOperator(value as OperatorKind)
+        if (memory !== undefined) {
+          evaluate()
+        } else {
+          setMemory(display)
+        }
         return
       case 'digit':
-        if (!memory) {
+        if (memory === undefined) {
           setDisplay(display.replace(/^0/, '') + value)
+          break
         } else {
+          if (operator) {
+            if (memory === display) {
+              setMemory(display)
+              setDisplay(value)
+            } else {
+              setDisplay(display + value)
+            }
+            break
+          }
           setDisplay(value)
         }
         break
@@ -31,47 +48,62 @@ const CalculatorPage: NextPage = () => {
         setDisplay(display.substr(0, display.length - 1))
         break
       default:
-        throw new Error(`unsupported keyKind ${kind}`)
+        setDisplay('Error')
     }
   }
 
-  const handleSubmit: FormEventHandler = (e) => {
-    e.preventDefault()
+  const evaluate = () => {
     if (!memory || !operator) {
       return
     }
-    const op1 = parseFloat(memory || '0')
-    const op2 = parseFloat(display)
+    const op1 = parseFloat(memory.replace(',', '') || '0')
+    const op2 = parseFloat(display.replace(',', ''))
+    let result: string
     switch (operator) {
       case '+':
-        setDisplay(`${op1 + op2}`)
+        result = `${op1 + op2}`
         break
       case '-':
-        setDisplay(`${op1 - op2}`)
+        result = `${op1 - op2}`
         break
       case 'x':
-        setDisplay(`${op1 * op2}`)
+        result = `${op1 * op2}`
         break
       case '/':
-        setDisplay(`${op1 / op2}`)
+        result = `${op1 / op2}`
         break
       default:
-        throw new Error('invalid operator')
+        result = 'Error'
     }
+    setDisplay(result)
+    setMemory(result)
   }
 
-  const handleReset: FormEventHandler = (e) => {
+  const reset: FormEventHandler = (e) => {
     e.preventDefault()
     setDisplay('0')
     setMemory(undefined)
     setOperator(undefined)
   }
+
+  useEffect(() => {
+    const newDisplay = display.endsWith('.') ? display : format(display)
+    setDisplay(newDisplay)
+  }, [display])
+
+  useEffect(() => {
+    console.log({ display }, { operator }, { memory })
+  }, [display, operator, memory])
+
   return (
     <div className="grid gap-6">
       <form
         className="grid gap-6 w-full"
-        onSubmit={handleSubmit}
-        onReset={handleReset}
+        onSubmit={(e) => {
+          e.preventDefault()
+          evaluate()
+        }}
+        onReset={reset}
       >
         <section className="bg-screen rounded text-white">
           <h2 className="sr-only">Calculator Display</h2>
@@ -80,7 +112,7 @@ const CalculatorPage: NextPage = () => {
               Display
             </label>
             <input
-              className="bg-screen border-none rounded text-right w-full text-2xl px-6 py-7"
+              className="display bg-screen border-none rounded text-right w-full text-2xl px-6 py-7"
               id="display"
               type="text"
               readOnly
@@ -101,7 +133,13 @@ const CalculatorPage: NextPage = () => {
               <input className="btn btn-accent" type="reset" />
             </li>
             <li className="row-start-5 col-start-3 col-span-full p-1">
-              <input className="btn btn-primary" type="submit" value="=" />
+              <input
+                className={`btn btn-primary equals ${
+                  theme === '3' ? 'hover:shadow-inner-primary-alt' : ''
+                }`}
+                type="submit"
+                value="="
+              />
             </li>
           </ul>
         </section>

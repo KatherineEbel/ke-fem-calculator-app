@@ -1,16 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
 
 export default function AppHeader() {
-  const [theme, setTheme] = useState<string>('1')
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
+
   return (
     <header className="flex justify-between items-center">
       <h1>calc</h1>
-      <section className="text-sm flex gap-7 items-center">
+      <section className="theme-section text-sm flex gap-7 items-center">
         <h3 className="self-end mb-1">Theme</h3>
         <form>
-          <div className="flex flex-col gap-1 place-items-center">
+          <div className="items-center">
             <label
-              className="flex self-stretch justify-around pl-0.5"
+              className=" flex self-stretch justify-around pl-0.5"
               htmlFor="theme"
             >
               <span>1</span>

@@ -2,13 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background-main: hsl(222, 26%, 31%);
+  --background-keypad-toggle: hsl(223, 31%, 20%);
+  --background-screen: hsl(224, 36%, 15%);
+
+  --key-primary-lt: hsla(6, 93%, 67%, 1);
+  --key-primary: hsl(6, 63%, 50%);
+  --key-primary-dk: hsl(6, 70%, 34%);
+
+  --key-accent-lt: hsl(224, 51%, 76%);
+  --key-accent: hsl(225, 21%, 49%);
+  --key-accent-dk: hsl(224, 28%, 35%);
+
+  --key-secondary-lt: hsl(31, 100%, 100%);
+  --key-secondary: hsl(31, 24%, 89%);
+  --key-secondary-dk: hsl(28, 16%, 65%);
+  
+  --text-color: hsl(221, 14%, 31%);
+  --white: hsl(0, 0%, 100%);
+  --text-contrast: var(--white);
+}
+
+[data-theme='2'] {
+  --background-main: hsla(0, 0%, 90%, 1);
+  --background-keypad-toggle: hsla(0, 5%, 81%, 1);
+  --background-screen: hsla(9, 1%, 93%, 1);
+  
+  --key-primary-lt: hsl(25, 100%, 61%);
+  --key-primary: hsl(25, 98%, 40%);
+  --key-primary-dk: hsl(25, 99%, 27%);
+  
+  --key-accent-lt: hsla(184, 40%, 56%, 1);
+  --key-accent: hsl(184, 42%, 37%);
+  --key-accent-dk: hsl(184, 59%, 25%);
+  
+  --key-secondary-lt: hsl(0, 0%, 100%);
+  --key-secondary: hsl(45, 7%, 89%);
+  --key-secondary-dk: hsl(34, 11%, 61%);
+  
+  --text-color: hsl(60, 10%, 19%);
+  --text-contrast: var(--text-color);
+}
+
+[data-theme='3'] {
+  --background-main: hsl(267, 74%, 9%);
+  --background-keypad-toggle: hsla(268, 71%, 12%, 1);
+  --background-screen: hsla(268, 71%, 12%, 1);
+  
+  --key-primary-lt: hsla(176, 100%, 79%, 1);
+  --key-primary: hsla(176, 100%, 44%, 1);
+  --key-primary-dk: hsla(176, 93%, 70%, 1);
+  --key-primary-dk-alt: hsla(176, 93%, 70%, 1);
+  
+  --key-accent-lt: hsla(281, 89%, 26%, 1);
+  --key-accent: hsla(268, 47%, 21%, 1);
+  --key-accent-dk: hsla(285, 91%, 52%, 1);
+
+  --key-secondary-lt: hsla(268, 54%, 44%, 1);
+  --key-secondary: hsla(268, 47%, 21%, 1);
+  --key-secondary-dk: hsla(290, 70%, 36%, 1);
+  
+  --text-equals: hsla(198, 20%, 13%, 1);
+  --text-contrast: hsla(52, 100%, 62%, 1);
+  --text-color: hsla(52, 100%, 62%, 1);
+}
+
+
 @layer base {
   body > div:first-child {
     @apply h-full w-full bg-main grid place-items-center  px-6
   }
   
+  body > * {
+    @apply transition-colors duration-500
+  }
+  
   h1 {
-    @apply text-xl md:text-2xl
+    @apply text-xl md:text-2xl text-text-contrast
   }
   
   h3 {
@@ -21,6 +92,10 @@
   /*-------------
     Header
   -------------*/
+  
+  .theme-section {
+    @apply text-text-contrast;
+  }
   
   .toggle {
     @apply w-16 h-6 px-1 rounded-lg bg-keypad/toggle  outline-none;
@@ -35,6 +110,10 @@
   .toggle:hover::-moz-range-thumb
   {
     @apply bg-key-primary-lt
+  }
+  
+  .display {
+    @apply text-text-contrast
   }
   
   /*-------------
@@ -53,7 +132,12 @@
   }
   
   .btn-accent {
-    @apply bg-key-accent shadow-inner-accent active:shadow-none hover:bg-key-accent-lt
+    @apply bg-key-accent hover:bg-key-accent-lt shadow-inner-accent text-white active:shadow-none
+  }
+  
+  
+  .equals {
+    color: var(--text-equals, #fff)
   }
   
   /*-------------
@@ -61,7 +145,7 @@
   -------------*/
   
   .attribution {
-    @apply  text-center text-key-secondary text-sm
+    @apply  text-center text-sm text-text-contrast
   }
   
   .attribution a {
