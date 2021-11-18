@@ -120,7 +120,7 @@
     Buttons
   -------------*/
   .btn {
-    @apply w-full h-16 uppercase rounded border-none transition-colors duration-300 active:translate-y-1
+    @apply w-full h-16 rounded border-none transition-colors duration-300 active:translate-y-1
   }
   
   .btn-primary {
@@ -132,7 +132,7 @@
   }
   
   .btn-accent {
-    @apply bg-key-accent hover:bg-key-accent-lt shadow-inner-accent text-white active:shadow-none
+    @apply bg-key-accent uppercase hover:bg-key-accent-lt shadow-inner-accent text-white active:shadow-none
   }
   
   
