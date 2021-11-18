@@ -62,7 +62,7 @@ const CalculatorPage: NextPage = () => {
       if (!op1 || (op2?.length && !isOperator(prevKey))) {
         // replace 0 at front to stop it from flashing briefly in UI
         setDisplay(display.replace(/^0/, '') + input)
-      } else if (operator && !op2?.length) {
+      } else if ((operator && !op2?.length) || isOperator(prevKey)) {
         setOp2(input)
         setDisplay(input)
       }
@@ -104,6 +104,7 @@ const CalculatorPage: NextPage = () => {
     e.preventDefault()
     setDisplay('0')
     setOp1(undefined)
+    setOp2(undefined)
     setOperator(undefined)
     setError(false)
   }

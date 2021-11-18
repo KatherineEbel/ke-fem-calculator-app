@@ -168,8 +168,8 @@ describe('Calculator', () => {
   })
 
   it(`handles multiple operations`, async () => {
-    input('3', '2', '-', '2', '-')
-    expect(display).toHaveValue('30')
+    input('3', '2', '-', '2', '-', '2')
+    expect(display).toHaveValue('2')
   })
 
   it(`sets display to provided digit after =`, async () => {
