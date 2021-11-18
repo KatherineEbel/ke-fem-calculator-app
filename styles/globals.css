@@ -70,7 +70,7 @@
 
 @layer base {
   body > div:first-child {
-    @apply h-full w-full grid place-items-center px-6
+    @apply grid place-items-center px-6
   }
   
   h1 {
