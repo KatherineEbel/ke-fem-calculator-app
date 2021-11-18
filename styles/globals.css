@@ -73,10 +73,6 @@
     @apply h-full w-full grid place-items-center px-6
   }
   
-  body * {
-    @apply transition-colors duration-500
-  }
-  
   h1 {
     @apply text-xl md:text-2xl text-text-contrast
   }
