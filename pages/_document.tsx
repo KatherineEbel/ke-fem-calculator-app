@@ -17,7 +17,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="w-screen h-screen font-sans text-white">
+        <body className="w-screen min-h-screen font-sans bg-main text-white">
           <Main />
           <NextScript />
         </body>

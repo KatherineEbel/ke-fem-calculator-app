@@ -2,7 +2,7 @@ export default function AppFooter() {
   return (
     <footer>
       <div className="attribution">
-        Challenge by{' '}
+        <span>Challenge by </span>
         <a
           href="https://www.frontendmentor.io?ref=challenge"
           target="_blank"
@@ -10,11 +10,10 @@ export default function AppFooter() {
         >
           Frontend Mentor
         </a>
-        . Coded by{' '}
+        <span className="mx-1">&bull;</span> <span>Coded by </span>
         <a href="https://www.frontendmentor.io/profile/KatherineEbel">
           Katherine Ebel
         </a>
-        .
       </div>
     </footer>
   )

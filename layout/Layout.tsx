@@ -8,7 +8,7 @@ export default function Layout({ children }: PropsWithChildren<any>) {
   useEffect(() => setMounted(true), [])
 
   return (
-    <div className="h-full grid sm:w-calculator">
+    <div className="h-full grid gap-8 sm:w-calculator py-7 m-0">
       <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

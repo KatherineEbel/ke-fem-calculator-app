@@ -124,7 +124,7 @@ const CalculatorPage: NextPage = () => {
         </section>
         <section className="bg-keypad/toggle rounded">
           <h2 className="sr-only">Keypad</h2>
-          <ul className="grid grid-cols-4 grid-rows-5 gap-6 p-6 rounded list-none">
+          <ul className="grid grid-cols-4 grid-rows-5 gap-3.5 sm:gap-6 p-6 rounded list-none">
             {calculatorKeys.map((k, i) => (
               <li key={i} className="w-full">
                 <CalculatorKey input={k} onClick={handleInput} />

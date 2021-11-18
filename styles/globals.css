@@ -6,15 +6,15 @@
   --background-main: hsl(222, 26%, 31%);
   --background-keypad-toggle: hsl(223, 31%, 20%);
   --background-screen: hsl(224, 36%, 15%);
-
+  
   --key-primary-lt: hsla(6, 93%, 67%, 1);
   --key-primary: hsl(6, 63%, 50%);
   --key-primary-dk: hsl(6, 70%, 34%);
-
+  
   --key-accent-lt: hsl(224, 51%, 76%);
   --key-accent: hsl(225, 21%, 49%);
   --key-accent-dk: hsl(224, 28%, 35%);
-
+  
   --key-secondary-lt: hsl(31, 100%, 100%);
   --key-secondary: hsl(31, 24%, 89%);
   --key-secondary-dk: hsl(28, 16%, 65%);
@@ -54,7 +54,6 @@
   --key-primary: hsla(176, 100%, 44%, 1);
   --key-primary-dk: hsla(176, 93%, 70%, 1);
   
-  
   --key-accent-lt: hsla(281, 89%, 26%, 1);
   --key-accent: hsla(268, 47%, 21%, 1);
   --key-accent-dk: hsla(285, 91%, 52%, 1);
@@ -71,7 +70,7 @@
 
 @layer base {
   body > div:first-child {
-    @apply h-full w-full bg-main grid place-items-center  px-6
+    @apply h-full w-full grid place-items-center px-6
   }
   
   body * {
@@ -86,29 +85,56 @@
     @apply text-sm uppercase
   }
   
+  input[type=range] {
+    -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+    width: 100%; /* Specific width is required for Firefox. */
+    background: transparent; /* Otherwise white in Chrome */
+  }
+  
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+  
+  input[type=range]:focus {
+    outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+  }
+  
+  input[type=range]::-ms-track {
+    width: 100%;
+    cursor: pointer;
+    
+    /* Hides the slider so custom styles can be added */
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
 }
 
 @layer components {
   /*-------------
     Header
   -------------*/
-  
   .theme-section {
     @apply text-text-contrast;
   }
   
-  .switch {
+  input[type=range] {
     @apply w-16 h-7 px-1 rounded-lg bg-keypad/toggle outline-none;
   }
   
-  .switch::-webkit-slider-thumb,
-  .switch::-moz-range-thumb {
-    @apply w-4 h-4 bg-key-primary border-none rounded-full cursor-pointer p-0;
+  .switch::-webkit-slider-thumb {
+    @apply appearance-none w-4 h-4 bg-key-primary border-none rounded-full cursor-pointer p-0;
   }
   
-  .switch:hover::-webkit-slider-thumb,
-  .switch:hover::-moz-range-thumb
-  {
+  .switch::-moz-range-thumb {
+    @apply appearance-none w-4 h-4 bg-key-primary border-none rounded-full cursor-pointer p-0;
+  }
+  
+  .switch:hover::-moz-range-thumb {
+    @apply bg-key-primary-lt
+  }
+  
+  .switch:hover::-webkit-slider-thumb {
     @apply bg-key-primary-lt
   }
   
@@ -143,9 +169,8 @@
   /*-------------
     Footer
   -------------*/
-  
   .attribution {
-    @apply  text-center text-sm text-text-contrast
+    @apply flex justify-center gap-1 items-center text-[8px] md:text-sm text-text-contrast
   }
   
   .attribution a {
