@@ -53,12 +53,12 @@
   --key-primary-lt: hsla(176, 100%, 79%, 1);
   --key-primary: hsla(176, 100%, 44%, 1);
   --key-primary-dk: hsla(176, 93%, 70%, 1);
-  --key-primary-dk-alt: hsla(176, 93%, 70%, 1);
+  
   
   --key-accent-lt: hsla(281, 89%, 26%, 1);
   --key-accent: hsla(268, 47%, 21%, 1);
   --key-accent-dk: hsla(285, 91%, 52%, 1);
-
+  
   --key-secondary-lt: hsla(268, 54%, 44%, 1);
   --key-secondary: hsla(268, 47%, 21%, 1);
   --key-secondary-dk: hsla(290, 70%, 36%, 1);
@@ -74,7 +74,7 @@
     @apply h-full w-full bg-main grid place-items-center  px-6
   }
   
-  body > * {
+  body * {
     @apply transition-colors duration-500
   }
   
@@ -97,17 +97,17 @@
     @apply text-text-contrast;
   }
   
-  .toggle {
-    @apply w-16 h-6 px-1 rounded-lg bg-keypad/toggle  outline-none;
+  .switch {
+    @apply w-16 h-7 px-1 rounded-lg bg-keypad/toggle outline-none;
   }
   
-  .toggle::-webkit-slider-thumb,
-  .toggle::-moz-range-thumb {
+  .switch::-webkit-slider-thumb,
+  .switch::-moz-range-thumb {
     @apply w-4 h-4 bg-key-primary border-none rounded-full cursor-pointer p-0;
   }
   
-  .toggle:hover::-webkit-slider-thumb,
-  .toggle:hover::-moz-range-thumb
+  .switch:hover::-webkit-slider-thumb,
+  .switch:hover::-moz-range-thumb
   {
     @apply bg-key-primary-lt
   }
@@ -120,7 +120,7 @@
     Buttons
   -------------*/
   .btn {
-    @apply rounded w-full h-16 uppercase transition-colors duration-300 active:translate-y-1
+    @apply w-full h-16 uppercase rounded border-none transition-colors duration-300 active:translate-y-1
   }
   
   .btn-primary {
@@ -128,7 +128,7 @@
   }
   
   .btn-secondary {
-    @apply bg-key-secondary shadow-inner-secondary active:shadow-none text-xl text-text-color hover:bg-key-secondary-lt
+    @apply bg-key-secondary shadow-inner-secondary active:shadow-none text-lg sm:text-xl text-text-color hover:bg-key-secondary-lt
   }
   
   .btn-accent {
@@ -136,7 +136,7 @@
   }
   
   
-  .equals {
+  .btn-equals {
     color: var(--text-equals, #fff)
   }
   

@@ -1,18 +1,18 @@
-import { KeyConfig, KeyKind } from 'lib/keys'
+import { Input } from 'lib/keys'
 
 interface Props {
-  config: KeyConfig
-  onClick: (kind: KeyKind, value: string) => void
+  input: Input
+  onClick: (input: Input) => void
 }
 
-export default function CalculatorKey({ onClick, config }: Props) {
+export default function CalculatorKey({ onClick, input }: Props) {
   return (
     <button
-      className={`btn ${config.className ?? 'btn-secondary'}`}
+      className={`btn ${input === 'del' ? 'btn-accent' : 'btn-secondary'}`}
       type="button"
-      onClick={() => onClick(config.kind, config.value)}
+      onClick={() => onClick(input)}
     >
-      {config.value}
+      {input}
     </button>
   )
 }

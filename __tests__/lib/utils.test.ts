@@ -10,4 +10,14 @@ describe('format', () => {
     const actual = format('1,000,000')
     expect(actual).toBe('1,000,000')
   })
+
+  it(`returns 25. for displayValue of 25.`, async () => {
+    const actual = format('25.')
+    expect(actual).toBe('25.')
+  })
+
+  it(`returns 0. for displayValue of .`, async () => {
+    const actual = format('.')
+    expect(actual).toBe('0.')
+  })
 })

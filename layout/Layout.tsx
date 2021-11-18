@@ -1,9 +1,12 @@
 import Head from 'next/head'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 import AppHeader from '../components/AppHeader'
 import AppFooter from '../components/AppFooter'
 
 export default function Layout({ children }: PropsWithChildren<any>) {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+
   return (
     <div className="h-full grid sm:w-calculator">
       <Head>
@@ -15,9 +18,13 @@ export default function Layout({ children }: PropsWithChildren<any>) {
         />
         <title>Frontend Mentor | Calculator app</title>
       </Head>
-      <AppHeader />
-      <main>{children}</main>
-      <AppFooter />
+      {mounted ? (
+        <>
+          <AppHeader />
+          <main>{children}</main>
+          <AppFooter />
+        </>
+      ) : null}
     </div>
   )
 }
