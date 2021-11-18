@@ -5,36 +5,13 @@ import {
   calculatorKeys,
   Input,
   isCommand,
+  isDigit,
   isOperator,
   Operator,
   OperatorKind,
-} from '../lib/keys'
-import { format } from '../lib/utils'
+} from 'lib/keys'
+import { evaluate, format } from 'lib/utils'
 import { useTheme } from 'next-themes'
-import { isDigit } from 'json5/lib/util'
-
-const evaluate = (op1: string, op2: string, operator: Operator) => {
-  const firstVal = parseFloat(op1.replace(',', '') || '0')
-  const secondVal = parseFloat(op2.replace(',', ''))
-  let result: string
-  switch (operator) {
-    case '+':
-      result = `${firstVal + secondVal}`
-      break
-    case '-':
-      result = `${firstVal - secondVal}`
-      break
-    case 'x':
-      result = `${firstVal * secondVal}`
-      break
-    case '/':
-      result = `${firstVal / secondVal}`
-      break
-    default:
-      result = 'Error'
-  }
-  return result
-}
 
 const CalculatorPage: NextPage = () => {
   const [op1, setOp1] = useState<string>()
@@ -46,12 +23,21 @@ const CalculatorPage: NextPage = () => {
 
   const { theme } = useTheme()
 
+  // prevents keeps operation from being calculated multiple times
+  const canCalculate = () => {
+    if (!operator || isOperator(prevKey)) return false
+    return op1 !== undefined && op2 !== undefined
+  }
+
   const handleInput = (input: Input) => {
     if (isOperator(input)) {
       setOperator(input)
       setOp1(display)
-      if (operator && op1 !== undefined && op2 !== undefined) {
-        const result = evaluate(op1, op2, operator)
+      // if (operator && op1 !== undefined && op2 !== undefined) {
+      if (canCalculate()) {
+        setOp2(display)
+        // canCalculate assures values exist, so using !
+        const result = evaluate(op1!, display, operator!)
         setDisplay(result)
         setOp1(result)
       }
@@ -66,37 +52,30 @@ const CalculatorPage: NextPage = () => {
         setOp2(input)
         setDisplay(input)
       }
-      return
     }
     if (isCommand(input)) {
       setPrevKey(input)
       if (input === '.') {
-        if (display.includes(input)) {
-          return
-        }
-        if (operator && !op2?.length) {
-          setDisplay('0.')
-          return
-        }
-        setDisplay(display + input)
+        if (display.includes(input)) return
+        setDisplay(operator && !op2?.length ? '0.' : display + input)
       }
 
-      if (input === 'del') {
-        setDisplay(display.substr(0, display.length - 1))
-      }
+      if (input === 'del') setDisplay(display.substr(0, display.length - 1))
 
       if (input === '=') {
         if (!op1 || !operator) return
-        let result: string
-        if (prevKey === '=') {
-          result = evaluate(display, op1, operator)
-        } else {
-          result = evaluate(op1, display, operator)
-          setOp1(display)
-        }
-        setDisplay(result)
+        setDisplay(calculateResult(op1, operator))
         setOp2(undefined)
       }
+    }
+  }
+
+  function calculateResult(otherOp: string, operator: Operator): string {
+    if (prevKey === '=') {
+      return evaluate(display, otherOp, operator)
+    } else {
+      setOp1(display)
+      return evaluate(otherOp, display, operator)
     }
   }
 
@@ -110,10 +89,8 @@ const CalculatorPage: NextPage = () => {
   }
 
   useEffect(() => {
-    if (display === 'Error') {
-      setError(true)
-      return
-    }
+    if (display === 'Error') return setError(true)
+
     setDisplay(format(display))
   }, [display])
 
@@ -131,7 +108,7 @@ const CalculatorPage: NextPage = () => {
           <h2 className="sr-only">Calculator Display</h2>
           <div>
             <label htmlFor="display" className="sr-only">
-              Display
+              Calculator Display
             </label>
             <input
               className={`display bg-screen border-none rounded text-right w-full text-2xl px-6 py-7 ${

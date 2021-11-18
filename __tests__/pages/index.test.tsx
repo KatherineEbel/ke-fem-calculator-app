@@ -172,6 +172,11 @@ describe('Calculator', () => {
     expect(display).toHaveValue('2')
   })
 
+  it(`handles multiple operations with two digit numbers`, async () => {
+    input('3', '5', '/', '1', '0', 'x')
+    expect(display).toHaveValue('3.5')
+  })
+
   it(`sets display to provided digit after =`, async () => {
     input('3', '+', '3', '=', '5')
     expect(display).toHaveValue('5')
