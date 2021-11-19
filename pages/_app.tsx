@@ -5,7 +5,7 @@ import { ThemeProvider } from 'next-themes'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider>
+    <ThemeProvider themes={['1', '2', '3']} enableSystem>
       <Layout>
         <Component {...pageProps} />
       </Layout>
